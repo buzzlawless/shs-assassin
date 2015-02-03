@@ -39,3 +39,28 @@ master[n][3] is their ID
 master[n+1] is their target's data (except for the last participant in the list, their target is master[0])
 '''
 export_csv(master, 'masterlist.csv')
+
+def get_target(index):
+    if index == len(master):
+        return master[0]
+    else:
+        return master[index+1]
+
+
+def send_email(content, receiver):
+    mail = smtplib.SMTP('smtp.gmail.com',587)
+    mail.ehlo()
+    mail.starttls()
+    mail.login('shsassassin15@gmail.com ', 'passwordgoeshere')#replace passwordgoeshere with the actual password.  I am not putting it here since the GitHub is public.
+    mail.sendmail('shsassassin15@gmail.com ', receiver, content)
+    mail.close()
+
+
+def email_assassins():
+    for i in range(0,len(master)):
+        body = 'This email is intended for '+master[i][1]+
+        '.  Your target is '+get_target(i)[1]+
+        '.  Your unique ID is '+master[i][3]+
+        '''.  Do not share it with anybody on the grounds of disqualification, EXCEPT when you are eliminated.
+        The ONLY time you will share your ID number is when you are assassinated, in which case you MUST give your ID to the person who assassinated you.
+        This will be your ID for the rest of the game and will NEVER change, even when you kill someone.'''
