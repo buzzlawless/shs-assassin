@@ -27,6 +27,7 @@ def export_csv(list_to_export, file_name):
 master = list()  
 import_csv(master, 'responses1.csv') #the latter parameter should be changed to match the name of the csv file
 generate_IDs(master)
+random.shuffle(master) #shuffles outer list
 '''
 master is a list of lists
 master[n] is the Nth participant's data
