@@ -7,10 +7,7 @@ def inputCSV(list_to_write, file_name):
         reader=csv.reader(csvfile)
         for row in reader:
             list_to_write.append(row)
-    list_to_write.pop(0)
-    list_to_write.pop(0)
-    list_to_write.pop(0)
-
+    list_to_write.pop(0)    
 
 def generateIDs(list_to_id):
     ids = random.sample(range(len(list_to_id)), len(list_to_id))
