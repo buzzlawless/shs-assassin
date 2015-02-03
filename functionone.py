@@ -22,7 +22,7 @@ def generate_IDs(list_to_id):
 def export_csv(list_to_export, file_name):
     with open(file_name, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
-        list_to_export.insert(0,['Timestamp', 'First and Last Name', 'Email'])
+        list_to_export.insert(0,['Timestamp', 'First and Last Name', 'Email', 'ID'])
         writer.writerows(list_to_export)
 
 master = list()  
