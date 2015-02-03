@@ -2,18 +2,24 @@ import csv
 import random
 
 
-def importCSV(list_to_write, file_name):
+def inputCSV(list_to_write, file_name):
     with open(file_name, newline='') as csvfile:
         reader=csv.reader(csvfile)
         for row in reader:
             list_to_write.append(row)
+    list_to_write.pop(0)
+    list_to_write.pop(0)
+    list_to_write.pop(0)
 
-input_data = list()  
-importCSV(input_data, 'responses1.csv')
-input_data.pop(0)
-input_data.pop(0)
-input_data.pop(0)
-ids = random.sample(range(len(input_data)), len(input_data))
-for i in range(0,len(input_data)):
-    input_data[i].append(ids[i])
-    print(input_data[i])
+
+def generateIDs(list_to_id):
+    ids = random.sample(range(len(list_to_id)), len(list_to_id))
+    for i in range(0,len(list_to_id)):
+        list_to_id[i].append(ids[i])
+
+master = list()  
+inputCSV(master, 'responses1.csv')
+generateIDs(master)
+
+for element in master:
+    print(element)
