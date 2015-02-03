@@ -1,5 +1,6 @@
 import csv
 import random
+import smtplib
 
 
 def import_csv(list_to_write, file_name):
@@ -35,12 +36,26 @@ def get_target(index):
 
 
 def send_email(content, receiver):
-    mail = smtplib.SMTP('smtp.gmail.com',587)
-    mail.ehlo()
-    mail.starttls()
-    mail.login('shsassassin15@gmail.com ', 'passwordgoeshere') #replace passwordgoeshere with the actual password.  I am not putting it here since the GitHub is public.
-    mail.sendmail('shsassassin15@gmail.com ', receiver, content)
-    mail.close()
+    gmail_user = "shsassassin15@gmail.com"
+    gmail_pwd = #password censored since GitHub is public
+    FROM = 'shsassassin15@gmail.com'
+    TO = [receiver] #must be a list
+    SUBJECT = "Assassin Information"
+    TEXT = content
+
+    # Prepare actual message
+    message = """\From: %s\nTo: %s\nSubject: %s\n\n%s
+    """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.ehlo()
+        server.starttls()
+        server.login(gmail_user, gmail_pwd)
+        server.sendmail(FROM, TO, message)
+        server.close()
+        print('successfully sent the mail')
+    except:
+        print('failed to send mail')
 
 
 def email_assassins():
