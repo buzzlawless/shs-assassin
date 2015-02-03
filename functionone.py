@@ -21,7 +21,7 @@ def generate_IDs(list_to_id):
 
 def export_csv(list_to_export, file_name):
     with open(file_name, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile, delimiter=',')
+        writer = csv.writer(csvfile)
         writer.writerows(list_to_export)
 
 master = list()  
