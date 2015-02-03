@@ -35,5 +35,6 @@ master[n][0] is their timestamp
 master[n][1] is their name
 master[n][2] is their email
 master[n][3] is their ID
+master[n+1] is their target's data (except for the last participant in the list, their target is master[0])
 '''
 export_csv(master, 'masterlist.csv')
