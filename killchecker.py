@@ -1,4 +1,4 @@
-#This should be run every 5 minutes to check if any kills have been reported in the last five minutes.  If so, update the master list and send an email and tweet.
+#This should be run every 5 minutes
 import csv
 import webbrowser
 import time
@@ -43,7 +43,7 @@ def email_next_target(index):
     gmail_pwd = ''#password censored since GitHub is public
     FROM = 'shsassassin15@gmail.com'
     TO = [master[index][2]] #must be a list
-    SUBJECT = "Your Next Assassin Target"
+    SUBJECT = 'Your Next Assassin Target'
     TEXT = 'This email is intended for '+master[index][1]+'.  Congratulations on eliminating '+eliminated[1]+'.  Your next target is '+master[get_target(index)][1]+'.  Good luck.'
 
     # Prepare actual message
@@ -56,10 +56,34 @@ def email_next_target(index):
         server.login(gmail_user, gmail_pwd)
         server.sendmail(FROM, TO, message)
         server.close()
-        print('successfully sent the mail')
+        print('successfully sent mail')
     except:
         print('failed to send mail')
-    
+
+
+def tweet(index):
+    gmail_user = 'shsassassin15@gmail.com'
+    gmail_pwd = ''#password censored since GitHub is public
+    FROM = 'shsassassin15@gmail.com'
+    TO = ['trigger@recipe.ifttt.com'] #must be a list
+    SUBJECT = 'Kill Update'
+    TEXT = eliminated[1]+' has been eliminated.  '+str(len(master))+' assassins remain.'
+
+    # Prepare actual message
+    message = '''\From: %s\nTo: %s\nSubject: %s\n\n%s
+    ''' % (FROM, ', '.join(TO), SUBJECT, TEXT)
+    try:
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.ehlo()
+        server.starttls()
+        server.login(gmail_user, gmail_pwd)
+        server.sendmail(FROM, TO, message)
+        server.close()
+        print('successfully sent twitter mail')
+    except:
+        print('failed to send twitter mail')
+
+  
 master = list()
 kills = list()
 webbrowser.open('http://docs.google.com/spreadsheets/d/FILE_ID/export?format=csv') #replace FILE_ID with the ID of the spreadsheet
@@ -88,6 +112,6 @@ for i in range(0,len(kills)):
         if killer_index == len(master): #if the killer was the last person in master then everyone moves up a spot, hence...
             killer_index -= 1           #... killer's index must be reduced by 1
         email_next_target(killer_index)
-        #email_elimination_message(get_target(killer_index))
-        #tweet(killer_index)
+        tweet(killer_index)
+export_csv(master, 'masterlist.csv')
 os.remove('D:\Downloads\Kill Responses - Form Responses 1.csv') #change drive letter
