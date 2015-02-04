@@ -36,18 +36,18 @@ def get_target(index):
 
 
 def send_email(content, receiver):
-    gmail_user = "shsassassin15@gmail.com"
-    gmail_pwd = #password censored since GitHub is public
+    gmail_user = 'shsassassin15@gmail.com'
+    gmail_pwd = ''#password censored since GitHub is public
     FROM = 'shsassassin15@gmail.com'
     TO = [receiver] #must be a list
     SUBJECT = "Assassin Information"
     TEXT = content
 
     # Prepare actual message
-    message = """\From: %s\nTo: %s\nSubject: %s\n\n%s
-    """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
+    message = '''\From: %s\nTo: %s\nSubject: %s\n\n%s
+    ''' % (FROM, ', '.join(TO), SUBJECT, TEXT)
     try:
-        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server = smtplib.SMTP('smtp.gmail.com', 587)
         server.ehlo()
         server.starttls()
         server.login(gmail_user, gmail_pwd)
