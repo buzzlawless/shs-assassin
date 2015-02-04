@@ -62,7 +62,7 @@ def email_next_target(index):
     
 master = list()
 kills = list()
-webbrowser.open('http://docs.google.com/spreadsheets/d/1SW7eNFyVxMq6dHe0ACu2HMAX-tjXmCOnkKMmu-rpZIA/export?format=csv') #replace FILE_ID with the ID of the spreadsheet
+webbrowser.open('http://docs.google.com/spreadsheets/d/FILE_ID/export?format=csv') #replace FILE_ID with the ID of the spreadsheet
 time.sleep(5) #number of seconds to wait for file to download
 import_csv(master, 'masterlist.csv')
 import_csv(kills, 'D:\Downloads\Kill Responses - Form Responses 1.csv') #change drive letter
