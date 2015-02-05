@@ -9,7 +9,8 @@ def import_csv(list_to_write, file_name):
         for row in reader:
             list_to_write.append(row)
     list_to_write.pop(0) #removes headers from master
-    for i in range(0,len(list_to_write)-2): #removes duplicates
+    #remove duplicates
+    for i in range(0,len(list_to_write)-2): 
         for j in range(i+1, len(list_to_write)-1):
             if list_to_write[i][1] == list_to_write[j][1]:
                 list_to_write.pop(i)
@@ -38,13 +39,13 @@ def get_target(index):
 
 def send_email(content, receiver):
     gmail_user = 'shsassassin15@gmail.com'
-    gmail_pwd = '' #password censored since GitHub is public
+    gmail_pwd = ''
     FROM = 'shsassassin15@gmail.com'
-    TO = [receiver] #must be a list
+    TO = [receiver]
     SUBJECT = "Assassin Information"
     TEXT = content
-
-    # Prepare actual message
+    
+    #prepare actual message
     message = '''\From: %s\nTo: %s\nSubject: %s\n\n%s
     ''' % (FROM, ', '.join(TO), SUBJECT, TEXT)
     try:
@@ -69,9 +70,9 @@ The ONLY time you will share your ID is when you are assassinated, in which case
         send_email(body, master[i][2])
 
 master = list()
-import_csv(master, 'Assassin Sign Up Responses - Form Responses 1.csv') #the latter parameter should be changed to match the name of the csv file
+import_csv(master, 'Assassin Sign Up Responses - Form Responses 1.csv')
 generate_IDs(master)
-random.shuffle(master) #shuffles outer list
+random.shuffle(master)
 '''
 master is a list of lists
 master[n] is the Nth participant's data
