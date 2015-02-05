@@ -7,7 +7,6 @@ import datetime
 import smtplib
 
 
-
 def import_csv(list_to_write, file_name):
     with open(file_name, newline='') as csvfile:
         reader = csv.reader(csvfile)
@@ -30,13 +29,15 @@ def remove_old():
     timestamp1.replace('/',' 0',1) #replace the first / with a space followed by 0 to zero-pad day of the month for use in strptime
     timestamp1 = '0'+ timestamp1 #add 0 to the beginning of timestamp to zero-pad month for use in strptime
     t1 = datetime.strptime(timestamp1, '%m %d/%Y %H:%M:%S')
-    for kill in kills:
-        timestamp2 = kill[0]
+    for i in range(0,len(kills)):
+        timestamp2 = kills[i][0]
         timestamp2.replace('/',' 0',1)
         timestamp2 = '0' + timestamp2
         t2 = datetime.strptime(timestamp2, '%m %d/%Y %H:%M:%S')
-        latest = max((t1, t2))        
-    
+        latest = max((t1, t2))
+        if latest == t1:
+            kills.pop(i)
+
     
 def get_target(index):
     if index == len(master)-1:
@@ -106,6 +107,7 @@ webbrowser.open('http://docs.google.com/spreadsheets/d/FILE_ID/export?format=csv
 time.sleep(5) #number of seconds to wait for file to download
 import_csv(master, 'masterlist.csv')
 import_csv(kills, 'D:\Downloads\Kill Responses - Form Responses 1.csv') #change drive letter
+remove_old()
 '''
 master is a list of lists
 master[n] is the Nth participant's data
