@@ -37,7 +37,7 @@ def remove_old():
         timestamp2 = timestamp2.replace('/',' 0',1)
         timestamp2 = '0' + timestamp2
         t2 = datetime.datetime.strptime(timestamp2, '%m %d/%Y %H:%M:%S')
-        latest = max(t1, t2)
+        latest = max((t1, t2))
         if latest == t1:
             kills.pop(i)
         i += 1
