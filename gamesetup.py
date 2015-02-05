@@ -9,12 +9,7 @@ def import_csv(list_to_write, file_name):
         for row in reader:
             list_to_write.append(row)
     list_to_write.pop(0) #removes headers from master
-    #remove duplicates
-    for i in range(0,len(list_to_write)-2): 
-        for j in range(i+1, len(list_to_write)-1):
-            if list_to_write[i][1] == list_to_write[j][1]:
-                list_to_write.pop(i)
-
+    
 
 def generate_IDs(list_to_id):
     ids = random.sample(range(len(list_to_id)), len(list_to_id)) #generates a list of unique random numbers from 0 to the number of participants
