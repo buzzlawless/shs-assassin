@@ -25,15 +25,17 @@ def export_csv(list_to_export, file_name):
 
 def remove_old():
     import_csv(last_kill, 'lastkill.csv')
-    timestamp1 = last_kill[0]
-    timestamp1.replace('/',' 0',1) #replace the first / with a space followed by 0 to zero-pad day of the month for use in strptime
+    timestamp1 = last_kill[0][0]
+    print(timestamp1)#db
+    timestamp1 = timestamp1.replace('/',' 0',1) #replace the first / with a space followed by 0 to zero-pad day of the month for use in strptime
+    print(timestamp1)#db
     timestamp1 = '0'+ timestamp1 #add 0 to the beginning of timestamp to zero-pad month for use in strptime
-    t1 = datetime.strptime(timestamp1, '%m %d/%Y %H:%M:%S')
+    t1 = datetime.datetime.strptime(timestamp1, '%m %d/%Y %H:%M:%S')
     for i in range(0,len(kills)):
         timestamp2 = kills[i][0]
-        timestamp2.replace('/',' 0',1)
+        timestamp2 = timestamp2.replace('/',' 0',1)
         timestamp2 = '0' + timestamp2
-        t2 = datetime.strptime(timestamp2, '%m %d/%Y %H:%M:%S')
+        t2 = datetime.datetime.strptime(timestamp2, '%m %d/%Y %H:%M:%S')
         latest = max((t1, t2))
         if latest == t1:
             kills.pop(i)
@@ -106,8 +108,9 @@ kills = list()
 webbrowser.open('http://docs.google.com/spreadsheets/d/FILE_ID/export?format=csv') #replace FILE_ID with the ID of the spreadsheet
 time.sleep(5) #number of seconds to wait for file to download
 import_csv(master, 'masterlist.csv')
-import_csv(kills, 'D:\Downloads\Kill Responses - Form Responses 1.csv') #change drive letter
-remove_old()
+import_csv(kills, 'C:\\Users\\lawlessm\\Downloads\\Kill Responses - Form Responses 1.csv') #change path
+last_kill = list()
+#remove_old()
 '''
 master is a list of lists
 master[n] is the Nth participant's data
@@ -123,6 +126,7 @@ kills[n][0] is the kills' timestamp
 kills[n][1] is the ID of the assassin
 kills[n][2] is the ID of the target
 '''
+
 for i in range(0,len(kills)):
     killer_index = verify(i)
     if killer_index > -1:
@@ -133,4 +137,4 @@ for i in range(0,len(kills)):
         tweet(killer_index)
 export_csv(master, 'masterlist.csv')
 export_csv(kills[-1], 'lastkill.csv')
-os.remove('D:\Downloads\Kill Responses - Form Responses 1.csv') #change drive letter
+os.remove('C:\\Users\\lawlessm\\Downloads\Kill Responses - Form Responses 1.csv') #change path
