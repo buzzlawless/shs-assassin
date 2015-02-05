@@ -3,7 +3,9 @@ import csv
 import webbrowser
 import time
 import os
+import datetime
 import smtplib
+
 
 
 def import_csv(list_to_write, file_name):
@@ -22,6 +24,20 @@ def export_csv(list_to_export, file_name):
         list_to_export.pop(0) #removes headers
 
 
+def remove_old():
+    import_csv(last_kill, 'lastkill.csv')
+    timestamp1 = last_kill[0]
+    timestamp1.replace('/',' 0',1) #replace the first / with a space followed by 0 to zero-pad day of the month for use in strptime
+    timestamp1 = '0'+ timestamp1 #add 0 to the beginning of timestamp to zero-pad month for use in strptime
+    t1 = datetime.strptime(timestamp1, '%m %d/%Y %H:%M:%S')
+    for kill in kills:
+        timestamp2 = kill[0]
+        timestamp2.replace('/',' 0',1)
+        timestamp2 = '0' + timestamp2
+        t2 = datetime.strptime(timestamp2, '%m %d/%Y %H:%M:%S')
+        latest = max((t1, t2))        
+    
+    
 def get_target(index):
     if index == len(master)-1:
         return 0
@@ -97,7 +113,7 @@ master[n][0] is their timestamp
 master[n][1] is their name
 master[n][2] is their email
 master[n][3] is their ID
-master[n+1] is their target's data (except for the last participant in the list, their target is master[0])
+master[n+1] is their target's data (except for the master[-1], their target is master[0])
 
 kills is a list of lists
 kills[n] is the Nth kill reported
@@ -114,4 +130,5 @@ for i in range(0,len(kills)):
         email_next_target(killer_index)
         tweet(killer_index)
 export_csv(master, 'masterlist.csv')
+export_csv(kills[-1], 'lastkill.csv')
 os.remove('D:\Downloads\Kill Responses - Form Responses 1.csv') #change drive letter
