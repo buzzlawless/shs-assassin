@@ -10,8 +10,9 @@ def import_csv(list_to_write, file_name):
             list_to_write.append(row)
     list_to_write.pop(0) #removes headers from master
     for i in range(0,len(list_to_write)-2): #removes duplicates
-        if list_to_write[i][1] == list_to_write[i+1][1]:
-            list_to_write.pop(i)
+        for j in range(i+1, len(list_to_write)-1):
+            if list_to_write[i][1] == list_to_write[j][1]:
+                list_to_write.pop(i)
 
 
 def generate_IDs(list_to_id):
@@ -37,7 +38,7 @@ def get_target(index):
 
 def send_email(content, receiver):
     gmail_user = 'shsassassin15@gmail.com'
-    gmail_pwd = ''#password censored since GitHub is public
+    gmail_pwd = '' #password censored since GitHub is public
     FROM = 'shsassassin15@gmail.com'
     TO = [receiver] #must be a list
     SUBJECT = "Assassin Information"
@@ -68,7 +69,7 @@ The ONLY time you will share your ID is when you are assassinated, in which case
         send_email(body, master[i][2])
 
 master = list()
-import_csv(master, 'responses1.csv') #the latter parameter should be changed to match the name of the csv file
+import_csv(master, 'Assassin Sign Up Responses - Form Responses 1.csv') #the latter parameter should be changed to match the name of the csv file
 generate_IDs(master)
 random.shuffle(master) #shuffles outer list
 '''
