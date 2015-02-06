@@ -26,9 +26,7 @@ def export_csv(list_to_export, file_name):
 def remove_old():
     import_csv(last_kill, 'lastkill.csv')
     timestamp1 = last_kill[0][0]
-    print(timestamp1)#db
     timestamp1 = timestamp1.replace('/',' 0',1) #replace the first / with a space followed by 0 to zero-pad day of the month for use in strptime
-    print(timestamp1)#db
     timestamp1 = '0'+ timestamp1 #add 0 to the beginning of timestamp to zero-pad month for use in strptime
     t1 = datetime.datetime.strptime(timestamp1, '%m %d/%Y %H:%M:%S')
     i = 0
@@ -61,7 +59,7 @@ def verify(index):
 
 def email_next_target(index):
     gmail_user = 'shsassassin15@gmail.com'
-    gmail_pwd = ''#password censored since GitHub is public
+    gmail_pwd = ''#censored since GitHub is public
     FROM = 'shsassassin15@gmail.com'
     TO = [master[index][2]] #must be a list
     SUBJECT = 'Your Next Assassin Target'
@@ -84,7 +82,7 @@ def email_next_target(index):
 
 def tweet(index):
     gmail_user = 'shsassassin15@gmail.com'
-    gmail_pwd = ''#password censored since GitHub is public
+    gmail_pwd = ''#cesnored since GitHub is public
     FROM = 'shsassassin15@gmail.com'
     TO = ['trigger@recipe.ifttt.com'] #must be a list
     SUBJECT = 'Kill Update'
@@ -107,10 +105,10 @@ def tweet(index):
   
 master = list()
 kills = list()
-webbrowser.open('http://docs.google.com/spreadsheets/d/FILE_ID/export?format=csv') #replace with FILE_ID of spreadsheet
+webbrowser.open('http://docs.google.com/spreadsheets/d/FILE_ID/export?format=csv') #replace FILE_ID with the ID of the spreadsheet
 time.sleep(5) #number of seconds to wait for file to download
 import_csv(master, 'masterlist.csv')
-import_csv(kills, 'D:\\Downloads\\Kill Responses - Form Responses 1.csv') #change path
+import_csv(kills, 'D:\\Downloads\\Kill Survey (Responses) - Form Responses 1.csv') #change path
 last_kill = list()
 remove_old()
 '''
@@ -139,4 +137,4 @@ for i in range(0,len(kills)):
         tweet(killer_index)
 export_csv(master, 'masterlist.csv')
 export_csv([kills[-1]], 'lastkill.csv')
-os.remove('D:\\Downloads\\Kill Responses - Form Responses 1.csv') #change path
+os.remove('D:\\Downloads\\Kill Survey (Responses) - Form Responses 1.csv') #change path
