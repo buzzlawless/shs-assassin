@@ -34,7 +34,7 @@ def get_target(index):
 
 def send_email(content, receiver):
     gmail_user = 'shsassassin15@gmail.com'
-    gmail_pwd = ''
+    gmail_pwd = '' #censored because GitHub is public
     FROM = 'shsassassin15@gmail.com'
     TO = [receiver]
     SUBJECT = "Assassin Information"
@@ -58,10 +58,7 @@ def send_email(content, receiver):
 def email_assassins():
     for i in range(0,len(master)):
         body = 'This email is intended for '+master[i][1]+'.  Your target is '+get_target(i)[1]+'.  Your unique ID is '+str(master[i][3])+'.'
-        body += '''  This will be your ID for the rest of the game and will NEVER change.
-Do not share your ID with anybody on the grounds of disqualification, EXCEPT when you are eliminated.
-The ONLY time you will share your ID is when you are assassinated, in which case you MUST give your ID to the person who assassinated you.
-'''
+        body += 'This will be your ID for the rest of the game and will NEVER change.  Do not share your ID with anybody on the grounds of disqualification, EXCEPT when you are eliminated.  The ONLY time you will share your ID is when you are assassinated, in which case you MUST give your ID to the person who assassinated you.'
         send_email(body, master[i][2])
 
 master = list()
