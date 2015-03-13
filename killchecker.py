@@ -27,8 +27,6 @@ def export_csv(list_to_export, file_name):
 def remove_old():
     import_csv(last_kill, 'lastkill.csv')
     timestamp1 = last_kill[0][0]
-    print(timestamp1)#db
-    print(timestamp1[3])#db
     if timestamp1[3] == '/': #if single-digit day        
         timestamp1 = timestamp1.replace('/',' 0',1) #replace the first / with a space followed by 0 to zero-pad day of the month for use in strptime
     else:
